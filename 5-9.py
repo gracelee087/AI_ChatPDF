@@ -28,7 +28,7 @@ st.write("---")
 openai_key = st.text_input('OPEN_AI_API_KEY', type="password")
 
 #파일 업로드
-uploaded_file = st.file_uploader("PDF 파일을 올려주세요!",type=['pdf'])
+uploaded_file = st.file_uploader("Please upload a PDF file",type=['pdf'])
 st.write("---")
 
 def pdf_to_document(uploaded_file):
@@ -62,14 +62,14 @@ if uploaded_file is not None:
     # 이전: db = Chroma.from_documents(texts, embeddings_model, persist_directory="./chroma_db")
 
     #Question
-    st.header("PDF에게 질문해보세요!!")
-    question = st.text_input('질문을 입력하세요')
+    st.header("Ask PDF!!")
+    question = st.text_input('Please write your question')
 
-    if st.button('질문하기'):
+    if st.button('Ask'):
         if not openai_key:
-            st.error("OpenAI API 키를 입력해주세요!")
+            st.error("Please provide your OpenAI API key")
         elif not question:
-            st.error("질문을 입력해주세요!")
+            st.error("Please enter a question!")
         else:
             with st.spinner('Wait for it...'):
                 try:
@@ -79,4 +79,4 @@ if uploaded_file is not None:
                     # 이전: result = qa_chain({"query": question})
                     st.write(result["result"])
                 except Exception as e:
-                    st.error(f"오류가 발생했습니다: {str(e)}")
+                    st.error(f"An error has occurred: {str(e)}")
